@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# bash -c "$( curl https://gist.github.com/fis-dev/7597069/raw/install-php.sh -k )" -o 5.3.5
+# bash -c "$( curl http://fouber.github.io/install-php-cgi/install-php.sh -k )" -o 5.3.5
 
 echo
 
