@@ -30,17 +30,7 @@ echo "**************************************"
 echo 
 
 cd "${TEMP}"
-if [ ! -f "libxml2-2.7.8.tar.gz" ]; then
-    ftp -n << !
-open xmlsoft.org
-user anonymous 123456
-binary
-cd "libxml2"
-get "libxml2-2.7.8.tar.gz"
-close
-bye
-!
-fi
+curl "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz" -o "libxml2-2.7.8.tar.gz"
 
 echo "**************************************"
 echo "* Uncompress libxml2-2.7.8.tar.gz"
@@ -77,7 +67,7 @@ echo
 
 cd "${TEMP}"
 
-wget "http://museum.php.net/php5/php-${PHP_VERSION}.tar.gz"
+curl "http://museum.php.net/php5/php-${PHP_VERSION}.tar.gz" -o "php-${PHP_VERSION}.tar.gz"
 
 echo "**************************************"
 echo "* Uncompress php-${PHP_VERSION}.tar.gz"
