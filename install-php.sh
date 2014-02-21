@@ -6,7 +6,6 @@ echo
 
 set -e
 trap 'echo Error on line $BASH_SOURCE:$LINENO' ERR
-trap 'rm -f $tmp' EXIT
 
 if [ -z $2 ]
 then
@@ -30,14 +29,19 @@ echo "**************************************"
 echo 
 
 cd "${TEMP}"
-curl "ftp://xmlsoft.org/libxml2/libxml2-2.7.8.tar.gz" -o "libxml2-2.7.8.tar.gz"
+
+LIBXML_FILE="libxml2-2.7.8.tar.gz"
+
+if [ ! -f "${LIBXML_FILE}" ]; then
+    curl "ftp://xmlsoft.org/libxml2/${LIBXML_FILE}" -o "${LIBXML_FILE}"
+fi
 
 echo "**************************************"
-echo "* Uncompress libxml2-2.7.8.tar.gz"
+echo "* Uncompress ${LIBXML_FILE}"
 echo "**************************************"
 echo 
 
-tar zxvf "libxml2-2.7.8.tar.gz"
+tar zxvf "${LIBXML_FILE}"
 cd "libxml2-2.7.8"
 
 echo "**************************************"
@@ -67,14 +71,18 @@ echo
 
 cd "${TEMP}"
 
-curl "http://museum.php.net/php5/php-${PHP_VERSION}.tar.gz" -o "php-${PHP_VERSION}.tar.gz"
+PHP_FILE="php-${PHP_VERSION}.tar.gz"
+
+if [ ! -f "${PHP_FILE}" ]; then
+    curl "http://museum.php.net/php5/${PHP_FILE}" -o "${PHP_FILE}"
+fi
 
 echo "**************************************"
-echo "* Uncompress php-${PHP_VERSION}.tar.gz"
+echo "* Uncompress ${PHP_FILE}"
 echo "**************************************"
 echo 
 
-tar zxvf "php-${PHP_VERSION}.tar.gz"
+tar zxvf "${PHP_FILE}"
 cd "php-${PHP_VERSION}"
 
 echo "**************************************"
@@ -90,14 +98,15 @@ then
     ln -s "${PHP_PREFIX}/bin/php-cgi.dSYM" "${PHP_PREFIX}/bin/php-cgi"
 fi
 
+cd "${PHP_PREFIX}"
+
 echo "**************************************"
 echo "* Add the environment variable "
 echo "**************************************"
 echo 
 
+echo "sudo ln -s ${PHP_PREFIX}/bin/php-cgi /usr/local/bin/php-cgi"
 sudo ln -s "${PHP_PREFIX}/bin/php-cgi" /usr/local/bin/php-cgi
-
-cd "${PHP_PREFIX}"
 
 php-cgi -v
 
