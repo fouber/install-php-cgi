@@ -74,7 +74,7 @@ cd "${TEMP}"
 PHP_FILE="php-${PHP_VERSION}.tar.gz"
 
 if [ ! -f "${PHP_FILE}" ]; then
-    curl "http://museum.php.net/php5/${PHP_FILE}" -o "${PHP_FILE}"
+    curl "http://php.net/distributions/${PHP_FILE}" -o "${PHP_FILE}"
 fi
 
 echo "**************************************"
